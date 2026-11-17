@@ -173,27 +173,18 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
   max-width: calc(var(--larghezza) + 96px); margin: 0 auto;
 }
 .apertura > * { margin: 0; max-width: none; }
-.apertura h2 { font-size: clamp(3.1rem, 7.6vw, 6.4rem); font-weight: 400; letter-spacing: -.01em; }
-.apertura-sotto { max-width: 470px; font-size: 1.08rem; color: var(--testo-tenue); margin: 26px 0 36px; }
+.apertura-sotto { max-width: 560px; font-family: var(--serif); font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.15; color: var(--bordeaux); margin: 18px 0 36px; }
 .apertura-azioni { display: flex; flex-wrap: wrap; gap: 14px; }
-.apertura-figura { position: relative; }
-.intreccio { width: 100%; max-width: 540px; margin-inline: auto; display: block; animation: galleggia 9s ease-in-out infinite; }
-@keyframes galleggia { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-14px) rotate(1.5deg); } }
-.filo { fill: none; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 700; stroke-dashoffset: 700; animation: disegna 2.6s .4s var(--morbido) forwards; }
-.filo-a { stroke: var(--bordeaux); }
-.filo-b { stroke: var(--crema); animation-delay: .75s; }
-@keyframes disegna { to { stroke-dashoffset: 0; } }
-.gomitolo { fill: var(--bordeaux); }
-.gomitolo-righe { fill: none; stroke: var(--cipria); stroke-width: 2; opacity: .8; }
-.bollino {
-  position: absolute; left: 4%; bottom: 8%;
-  width: 128px; height: 128px; border-radius: 50%;
-  background: var(--crema); box-shadow: var(--ombra);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; line-height: 1.3; color: var(--testo-tenue);
-  animation: ruota-piano 14s ease-in-out infinite;
-}
-.bollino strong { font-family: var(--serif); font-size: 2.8rem; font-weight: 500; color: var(--bordeaux); line-height: 1; letter-spacing: 0; }
+.apertura-tempi { display: flex; align-items: center; gap: 10px; margin: 26px 0 0; font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--bordeaux-chiaro); }
+.apertura-tempi svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+/* Foto in apertura: forma ad arco, come una vetrina di pasticceria */
+.apertura-figura { position: relative; margin: 0; width: 100%; max-width: 460px; justify-self: center; }
+.apertura-figura img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 60%;
+  border-radius: 999px 999px var(--raggio) var(--raggio); box-shadow: var(--ombra); }
+.apertura-figura figcaption { position: absolute; left: 50%; bottom: -18px; transform: translateX(-50%); white-space: nowrap;
+  background: var(--crema); box-shadow: var(--ombra); border-radius: 999px; padding: 8px 22px;
+  font-family: var(--serif); font-size: 1.25rem; color: var(--bordeaux); }
+
 @keyframes ruota-piano { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
 
 /* ---------- Nastro ---------- */
@@ -522,9 +513,8 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
   .copertina-motto { letter-spacing: .08em; font-size: .7rem; }
   .apertura-sotto { margin-inline: auto; }
   .apertura-azioni { justify-content: center; }
-  .apertura-figura { order: -1; max-width: 360px; margin: 0 auto; }
-  .bollino { width: 104px; height: 104px; left: -4%; }
-  .bollino strong { font-size: 2.2rem; }
+  .apertura-figura { order: -1; max-width: 300px; margin: 0 auto 18px; }
+  .apertura-tempi { justify-content: center; text-align: left; font-size: 1.05rem; max-width: 320px; margin-inline: auto; }
   .passi ol { grid-template-columns: 1fr; gap: 34px; }
   .garanzie ul { grid-template-columns: repeat(2, 1fr); }
   .natale-griglia { grid-template-columns: repeat(2, 1fr); }
@@ -552,7 +542,6 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
 /* ---------- Chi preferisce meno movimento ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
-  .filo { stroke-dashoffset: 0; }
   .rivela { opacity: 1; transform: none; }
 }
 
