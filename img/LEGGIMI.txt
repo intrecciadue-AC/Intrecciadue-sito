@@ -1,0 +1,1 @@
+Mettere qui le foto dei prodotti (es. confetto.jpg) e collegarle in js/prodotti.js.

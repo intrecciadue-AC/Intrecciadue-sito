@@ -1,0 +1,9 @@
+# Impostazioni di pubblicazione su Netlify
+# Il sito è fatto di file statici: non serve nessun comando di build.
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
