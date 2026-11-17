@@ -103,12 +103,7 @@ em { font-style: italic; color: var(--bordeaux-chiaro); }
   padding-block: 12px;
 }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-segno {
-  width: 38px; height: 38px; border-radius: 50%;
-  display: grid; place-items: center;
-  background: var(--cipria); color: var(--bordeaux);
-  font-family: var(--serif); font-style: italic; font-size: 1.15rem; font-weight: 600;
-}
+.logo-segno { width: 42px; height: 42px; display: block; flex: none; }
 .logo-nome { font-family: var(--serif); font-size: 1.45rem; font-style: italic; color: var(--bordeaux); }
 .menu { display: flex; gap: clamp(18px, 2.6vw, 36px); }
 .menu a {
