@@ -305,7 +305,7 @@
     const invia = $("#invia");
     invia.disabled = true; invia.textContent = "Invio in corso…";
 
-    const corpo = `Ciao Chiara e Alessia,\nvorrei ordinare:\n\n${testoOrdine()}\n\nNome: ${dati.get("nome")}\nEmail: ${dati.get("email")}\nTelefono: ${dati.get("telefono") || "-"}\nNote: ${dati.get("note") || "-"}`;
+    const corpo = `Ciao Chiara e Alessia,\nvorrei ordinare:\n\n${testoOrdine()}\n\nNome: ${dati.get("nome")}\nEmail: ${dati.get("email")}\nTelefono: ${dati.get("telefono") || "-"}\nConsegna: ${dati.get("consegna")}\nPagamento: ${dati.get("pagamento")}\nIndirizzo: ${dati.get("indirizzo") || "-"}\nNote: ${dati.get("note") || "-"}`;
     $("#inviaEmail").href = `mailto:${EMAIL_ORDINI}?subject=${encodeURIComponent("Ordine dal sito")}&body=${encodeURIComponent(corpo)}`;
 
     fetch("/", {

@@ -10,9 +10,8 @@
   <meta property="og:description" content="Borse e accessori all'uncinetto, fatti a mano a quattro mani.">
   <meta property="og:type" content="website">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23E8B4B8'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-style='italic' font-size='30' text-anchor='middle' fill='%235C1A2B'%3Ei2%3C/text%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="fonts/cormorant.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="fonts/jost.woff" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <script>document.documentElement.classList.remove("no-js");</script>
 </head>
@@ -100,6 +99,16 @@
       </ol>
     </section>
 
+    <!-- ===================== GARANZIE ===================== -->
+    <section class="garanzie" aria-label="Come funzionano ordini, pagamenti e consegne">
+      <ul>
+        <li class="rivela"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg><div><strong>Paghi dopo la conferma</strong><span>Nessun pagamento sul sito</span></div></li>
+        <li class="rivela"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></svg><div><strong>Bonifico, PayPal, Satispay</strong><span>o contanti alla consegna a mano</span></div></li>
+        <li class="rivela"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><div><strong>Spedizione in tutta Italia</strong><span>oppure consegna a mano o ritiro</span></div></li>
+        <li class="rivela"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><div><strong>Ti rispondiamo noi</strong><span><a href="mailto:intrecciadue@gmail.com">intrecciadue@gmail.com</a></span></div></li>
+      </ul>
+    </section>
+
     <!-- ===================== VETRINA ===================== -->
     <section class="vetrina" id="vetrina">
       <header class="intestazione-sezione">
@@ -183,7 +192,11 @@
         </details>
         <details class="rivela">
           <summary>Come si paga?</summary>
-          <p>Il pagamento non avviene sul sito. Dopo che ci hai inviato l'ordine ti contattiamo noi per confermare i dettagli e concordare insieme pagamento e consegna.</p>
+          <p>Il pagamento non avviene sul sito. Dopo che ci hai inviato l'ordine ti scriviamo per confermare i dettagli, e solo allora paghi con bonifico, PayPal o Satispay. Se ritiri l'ordine al nostro banco o te lo consegniamo a mano, puoi pagare anche in contanti.</p>
+        </details>
+        <details class="rivela">
+          <summary>Come ricevo il mio ordine?</summary>
+          <p>Spediamo in tutta Italia: il costo della spedizione te lo comunichiamo nel messaggio di conferma, prima che tu paghi. In alcune zone possiamo consegnare a mano, e puoi anche ritirare l'ordine al nostro banco durante i mercatini.</p>
         </details>
         <details class="rivela">
           <summary>Posso scegliere il colore?</summary>
@@ -195,7 +208,11 @@
         </details>
         <details class="rivela">
           <summary>Come vengo contattata dopo l'ordine?</summary>
-          <p>Ti scriviamo all'indirizzo email che inserisci nel modulo d'ordine, o al numero di telefono se preferisci lasciarcelo.</p>
+          <p>Ti scriviamo all'indirizzo email che inserisci nel modulo d'ordine, o al numero di telefono se preferisci lasciarcelo. Per qualsiasi domanda puoi scriverci a <a href="mailto:intrecciadue@gmail.com">intrecciadue@gmail.com</a> o su Instagram.</p>
+        </details>
+        <details class="rivela">
+          <summary>Posso restituire un articolo?</summary>
+          <p>Tutto quello che riguarda annullamenti, resi e garanzia è spiegato nelle <a href="condizioni.html">condizioni di vendita</a>.</p>
         </details>
       </div>
     </section>
@@ -214,6 +231,11 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.8 2.3 4.5 5 4.8"/></svg>
       </a>
     </div>
+    <p class="piede-contatto"><a href="mailto:intrecciadue@gmail.com">intrecciadue@gmail.com</a></p>
+    <nav class="piede-link" aria-label="Informazioni">
+      <a href="condizioni.html">Condizioni di vendita</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
     <p class="copyright">© 2026 Intrecci a Due · Tutti i diritti riservati</p>
   </footer>
 
@@ -264,12 +286,28 @@
         <label>Nome e cognome<input type="text" name="nome" required autocomplete="name"></label>
         <label>Email<input type="email" name="email" required autocomplete="email"></label>
         <label>Telefono <span class="facoltativo">(facoltativo)</span><input type="tel" name="telefono" autocomplete="tel"></label>
-        <label>Note, indirizzo o date importanti<textarea name="note" rows="3" placeholder="Es. è un regalo per il 24 dicembre"></textarea></label>
+        <label>Come preferisci riceverlo?
+          <select name="consegna" required>
+            <option value="Spedizione">Spedizione in Italia</option>
+            <option value="Consegna a mano">Consegna a mano (da concordare)</option>
+            <option value="Ritiro al mercatino">Ritiro al mercatino</option>
+          </select>
+        </label>
+        <label>Come preferisci pagare?
+          <select name="pagamento" required>
+            <option value="Bonifico">Bonifico</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Satispay">Satispay</option>
+            <option value="Contanti">Contanti (solo consegna a mano o ritiro)</option>
+          </select>
+        </label>
+        <label>Indirizzo di spedizione <span class="facoltativo">(se scegli la spedizione)</span><textarea name="indirizzo" rows="2" autocomplete="street-address"></textarea></label>
+        <label>Note o date importanti<textarea name="note" rows="2" placeholder="Es. è un regalo per il 24 dicembre"></textarea></label>
         <textarea name="ordine" id="campoOrdine" class="nascosto" readonly tabindex="-1" aria-hidden="true"></textarea>
         <input type="hidden" name="totale" id="campoTotale">
-        <label class="consenso"><input type="checkbox" name="consenso" required> Acconsento all'uso dei miei dati solo per gestire questo ordine.</label>
+        <label class="consenso"><input type="checkbox" name="consenso" required> <span>Ho letto le <a href="condizioni.html" target="_blank">condizioni di vendita</a> e l'<a href="privacy.html" target="_blank">informativa sulla privacy</a>.</span></label>
         <button type="submit" class="bottone bottone-pieno" id="invia">Invia l'ordine</button>
-        <p class="nota">Non paghi nulla adesso: ti contattiamo noi per confermare.</p>
+        <p class="nota">Non paghi nulla adesso: ti scriviamo noi per confermare l'ordine e il costo della spedizione.</p>
       </form>
     </div>
 
