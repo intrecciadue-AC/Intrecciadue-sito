@@ -154,6 +154,17 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
 .sezione-sotto { max-width: 560px; margin: 18px auto 0; color: var(--testo-tenue); }
 .centrato { text-align: center; margin-top: 48px; }
 
+/* ---------- Copertina: nome del brand e foto di tutte le borse ---------- */
+.copertina { padding: clamp(110px, 13vw, 150px) 0 0; text-align: center; }
+.copertina > * { max-width: none; }
+.copertina-nome { font-size: clamp(3.4rem, 11vw, 8.6rem); font-weight: 400; letter-spacing: -.01em; line-height: 1; padding-inline: 20px; }
+.copertina-motto { margin: 14px auto 0; padding-inline: 20px; font-size: clamp(.78rem, 1.6vw, .95rem); letter-spacing: .22em; text-transform: uppercase; color: var(--testo-tenue); }
+/* "multiply" fonde il bianco della foto con il color panna del sito */
+.copertina-foto { width: 100%; height: auto; margin-top: clamp(10px, 2vw, 24px); mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 86%, transparent 100%); }
+.copertina + .apertura { min-height: auto; padding-top: clamp(50px, 8vw, 100px); }
+
 /* ---------- Apertura ---------- */
 .apertura {
   min-height: 100svh;
@@ -162,7 +173,7 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
   max-width: calc(var(--larghezza) + 96px); margin: 0 auto;
 }
 .apertura > * { margin: 0; max-width: none; }
-.apertura h1 { font-size: clamp(3.1rem, 7.6vw, 6.4rem); font-weight: 400; letter-spacing: -.01em; }
+.apertura h2 { font-size: clamp(3.1rem, 7.6vw, 6.4rem); font-weight: 400; letter-spacing: -.01em; }
 .apertura-sotto { max-width: 470px; font-size: 1.08rem; color: var(--testo-tenue); margin: 26px 0 36px; }
 .apertura-azioni { display: flex; flex-wrap: wrap; gap: 14px; }
 .apertura-figura { position: relative; }
@@ -507,6 +518,8 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
   .menu a { font-family: var(--serif); font-size: 2.2rem; letter-spacing: 0; text-transform: none; font-style: italic; color: var(--bordeaux); }
   .hamburger { display: block; }
   .apertura { grid-template-columns: 1fr; text-align: center; padding-top: 110px; min-height: auto; }
+  .copertina-foto { height: 270px; object-fit: cover; object-position: 50% 30%; }
+  .copertina-motto { letter-spacing: .08em; font-size: .7rem; }
   .apertura-sotto { margin-inline: auto; }
   .apertura-azioni { justify-content: center; }
   .apertura-figura { order: -1; max-width: 360px; margin: 0 auto; }
