@@ -116,7 +116,7 @@ window.CATALOGO = {
   /* Collezione di Natale: senza prezzo, si chiedono informazioni.
      "nota" (facoltativa) sostituisce la riga sotto il nome. */
   natale: [
-    { nome: "Pallina",                    foto: "", tinta: ["#F4E3E3", "#B0263A"] },
+    { nome: "Pallina",                    foto: "img/natale-pallina.jpg", tinta: ["#F4E3E3", "#B0263A"] },
     { nome: "Stella",                     foto: "img/natale-stella.jpg", tinta: ["#F6EEDC", "#D4A645"] },
     { nome: "Omino di pan di zenzero",    foto: "img/natale-omino.jpg", tinta: ["#F1E2D2", "#A9663B"] },
     { nome: "Ghirlanda",                  foto: "img/natale-ghirlanda.jpg", tinta: ["#EAF0E3", "#4F6B45"],
