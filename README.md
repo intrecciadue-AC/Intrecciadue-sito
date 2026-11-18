@@ -6,7 +6,7 @@ Sito del brand Intrecci a Due: borse e accessori all'uncinetto fatti a mano da C
 
 | Cosa | File |
 |---|---|
-| Prodotti, prezzi, misure, colori, personalizzazioni, decorazioni di Natale | `js/prodotti.js` |
+| Prodotti, misure, colori, personalizzazioni, decorazioni di Natale (senza prezzi: il listino è nel foglio «Listino prezzi Intrecci a Due») | `js/prodotti.js` |
 | Recensioni delle clienti | `js/recensioni.js` |
 | Testi delle sezioni (chi siamo, mercatini, domande frequenti) | `index.html` |
 | Colori e caratteri del sito | `css/style.css`, all'inizio, nella parte `:root` |
@@ -22,11 +22,13 @@ Sito del brand Intrecci a Due: borse e accessori all'uncinetto fatti a mano da C
 Le foto rendono meglio se sono verticali (proporzione 4:5), luminose e con lo stesso sfondo.
 Finché un prodotto non ha la foto, il sito mostra un disegno provvisorio nei colori del prodotto.
 
-## Ordini
+## Richieste di informazioni
 
-Il modulo d'ordine usa Netlify Forms. Su Netlify bisogna:
+Sul sito non ci sono prezzi: la cliente sceglie prodotti e personalizzazioni (quelle a pagamento compaiono con la dicitura «con sovrapprezzo»), li aggiunge alla sua richiesta (icona dell'aeroplanino) e la invia. Il prezzo lo comunicate voi rispondendo.
+
+Il modulo (che su Netlify si chiama ancora «ordine») usa Netlify Forms. Su Netlify bisogna:
 
 1. attivare il rilevamento dei moduli (Forms → Enable form detection) e ripubblicare;
 2. aggiungere la notifica via email (Forms → Form notifications → Add notification → Email notification).
 
-Se l'invio non riesce, il sito propone di mandare l'ordine via email a intrecciadue@gmail.com.
+Se l'invio non riesce, il sito propone di mandare la richiesta via email a intrecciadue@gmail.com.

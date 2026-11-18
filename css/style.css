@@ -124,7 +124,7 @@ em { font-style: italic; color: var(--bordeaux-chiaro); }
   transition: transform .4s var(--morbido), background .3s;
 }
 .pulsante-carrello:hover { transform: scale(1.06); background: var(--cipria-chiara); }
-.pulsante-carrello svg { width: 22px; height: 22px; fill: none; stroke: var(--bordeaux); stroke-width: 1.5; }
+.pulsante-carrello svg { width: 22px; height: 22px; fill: none; stroke: var(--bordeaux); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
 .conta {
   position: absolute; top: -4px; right: -4px; min-width: 21px; height: 21px; padding: 0 5px;
   border-radius: 999px; background: var(--bordeaux); color: var(--panna);
@@ -426,6 +426,8 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
 .campo-testo { width: 100%; margin-top: 10px; }
 .scheda-piede { position: sticky; bottom: 0; background: var(--crema); margin-top: auto; padding: 18px 0 4px; border-top: 1px solid var(--linea); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .scheda-prezzo { margin: 0; font-family: var(--serif); font-size: 2.2rem; color: var(--bordeaux); }
+.scheda-nota { margin: 0; flex: 1 1 220px; font-size: .9rem; line-height: 1.45; color: var(--testo-tenue); }
+.scelta small { white-space: nowrap; }
 
 .carrello {
   position: fixed; z-index: 95; top: 0; right: 0; bottom: 0;
@@ -456,7 +458,7 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
 .togli { border: 0; background: none; font-size: .78rem; color: var(--testo-tenue); text-decoration: underline; text-underline-offset: 3px; padding: 0; }
 .carrello-vuoto { text-align: center; margin: auto 0; color: var(--testo-tenue); }
 .carrello-totale { margin-top: auto; padding-top: 22px; }
-.carrello-totale > p:first-child { display: flex; justify-content: space-between; align-items: baseline; margin: 0; font-size: .85rem; letter-spacing: .18em; text-transform: uppercase; }
+.carrello-totale > p.riga-totale { display: flex; justify-content: space-between; align-items: baseline; margin: 0; font-size: .85rem; letter-spacing: .18em; text-transform: uppercase; }
 .carrello-totale strong { font-family: var(--serif); font-size: 2.1rem; font-weight: 500; color: var(--bordeaux); letter-spacing: 0; }
 .nota { font-size: .82rem; color: var(--testo-tenue); margin: 6px 0 16px; text-align: center; }
 .indietro { border: 0; background: none; padding: 0; margin-bottom: 18px; font-size: .88rem; color: var(--testo-tenue); align-self: flex-start; }

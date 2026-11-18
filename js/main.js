@@ -1,6 +1,6 @@
 /* ==========================================================================
    INTRECCI A DUE — Funzionamento del sito
-   (vetrina, scheda prodotto, carrello, invio dell'ordine)
+   (vetrina, scheda prodotto, richiesta, invio della richiesta di informazioni)
    ========================================================================== */
 (function () {
   "use strict";
@@ -10,7 +10,6 @@
   const C = window.CATALOGO;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-  const euro = (n) => n.toLocaleString("it-IT", { minimumFractionDigits: n % 1 ? 2 : 0 }) + " €";
   const sicuro = (t) => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   /* ---------- Figura: foto oppure segnaposto disegnato ---------- */
@@ -21,8 +20,7 @@
       : `<div class="segnaposto" style="--t1:${p.tinta[0]};--t2:${p.tinta[1]}"><span>${iniziale}</span></div>`;
     return interno + (conScopri ? `<span class="scopri">Scegli e personalizza</span>` : "");
   }
-  const prezzoMinimo = (p) => Math.min(...p.misure.map((m) => m.prezzo));
-  const etichettaPrezzo = (p) => (p.misure.length > 1 ? "da " : "") + euro(prezzoMinimo(p));
+  const SOVRAPPREZZO = `<small>con sovrapprezzo</small>`;
 
   /* ---------- Vetrina ---------- */
   const griglia = $("#griglia");
@@ -41,11 +39,10 @@
     const cat = C.categorie.find((c) => c.id === categoriaAttiva);
     introCategoria.textContent = cat ? cat.intro : "Borse, accessori per il telefono e piccoli regali: tutto fatto a mano, nel colore che preferisci.";
     griglia.innerHTML = elenco.map((p, i) => `
-      <button class="prodotto" data-id="${p.id}" style="animation-delay:${Math.min(i, 8) * 60}ms" aria-label="${sicuro(p.nome)}, ${etichettaPrezzo(p)}">
+      <button class="prodotto" data-id="${p.id}" style="animation-delay:${Math.min(i, 8) * 60}ms" aria-label="${sicuro(p.nome)}">
         <div class="prodotto-figura">${figura(p, true)}</div>
         <div>
           <div class="prodotto-nome">${sicuro(p.nome)}</div>
-          <div class="prodotto-prezzo">${etichettaPrezzo(p)}</div>
         </div>
       </button>`).join("");
   }
@@ -115,16 +112,16 @@
     let html = "";
     if (p.misure.length > 1 || p.misure[0].nome) {
       html += gruppo("Misura", `<div class="scelte">${p.misure.map((m, i) => `
-        <label class="scelta"><input type="radio" name="misura" value="${i}" ${i === 0 ? "checked" : ""}><span>${sicuro(m.nome)} <small>${euro(m.prezzo)}</small></span></label>`).join("")}</div>`);
+        <label class="scelta"><input type="radio" name="misura" value="${i}" ${i === 0 ? "checked" : ""}><span>${sicuro(m.nome)}</span></label>`).join("")}</div>`);
     }
     html += gruppo("Colore", campioni("colore"));
     if (p.personalizzabile) {
       if (!p.soloPelle) {
         html += gruppo("Materiale", `<div class="scelte">${C.materiali.map((m, i) => `
-          <label class="scelta"><input type="radio" name="materiale" value="${i}" ${i === 0 ? "checked" : ""}><span>${m.nome}${m.prezzo ? ` <small>+${euro(m.prezzo)}</small>` : ""}</span></label>`).join("")}</div>`);
+          <label class="scelta"><input type="radio" name="materiale" value="${i}" ${i === 0 ? "checked" : ""}><span>${m.nome}${m.sovrapprezzo ? " " + SOVRAPPREZZO : ""}</span></label>`).join("")}</div>`);
       }
       html += gruppo("Dettagli", `<div class="scelte">${C.extra.map((x) => `
-        <label class="scelta"><input type="checkbox" name="extra" value="${x.id}"><span>${x.nome} <small>+${euro(x.prezzo)}</small></span></label>`).join("")}</div>
+        <label class="scelta"><input type="checkbox" name="extra" value="${x.id}"><span>${x.nome}${x.sovrapprezzo ? " " + SOVRAPPREZZO : ""}</span></label>`).join("")}</div>
         <div id="secondoColore" hidden><p class="nome-colore" style="margin-top:14px">Secondo colore</p>${campioni("colore2")}</div>
         <input type="text" class="campo-testo" id="testoIniziali" maxlength="4" placeholder="Quali iniziali? (es. C.A.)" hidden>`);
     }
@@ -145,7 +142,7 @@
     const p = prodottoAperto;
     const misura = p.misure[+(($('input[name="misura"]:checked', scheda) || {}).value || 0)];
     const colore = ($('input[name="colore"]:checked', scheda) || {}).value || C.colori[0].nome;
-    let prezzo = misura.prezzo;
+    let sovrapprezzo = false;
     const dettagli = [];
     if (misura.nome) dettagli.push(misura.nome);
     dettagli.push("Colore: " + colore);
@@ -153,12 +150,11 @@
       if (p.soloPelle) dettagli.push("Pelle");
       else {
         const mat = C.materiali[+(($('input[name="materiale"]:checked', scheda) || {}).value || 0)];
-        prezzo += mat.prezzo;
-        if (mat.prezzo) dettagli.push(mat.nome);
+        if (mat.sovrapprezzo) { sovrapprezzo = true; dettagli.push(mat.nome); }
       }
       $$('input[name="extra"]:checked', scheda).forEach((inp) => {
         const x = C.extra.find((e) => e.id === inp.value);
-        prezzo += x.prezzo;
+        if (x.sovrapprezzo) sovrapprezzo = true;
         if (x.id === "bicolor") {
           const c2 = ($('input[name="colore2"]:checked', scheda) || {}).value;
           dettagli.push("Bicolore" + (c2 ? " con " + c2 : ""));
@@ -168,12 +164,14 @@
         } else dettagli.push(x.nome);
       });
     }
-    return { prezzo, dettagli };
+    return { sovrapprezzo, dettagli };
   }
   function aggiornaPrezzoScheda() {
     if (!prodottoAperto) return;
     const s = sceltaCorrente();
-    $("#schedaPrezzo").textContent = euro(s.prezzo);
+    $("#schedaPrezzo").textContent = s.sovrapprezzo
+      ? "Con le scelte aggiunte il prezzo aumenta: te lo diciamo noi quando ci scrivi."
+      : "Aggiungilo alla richiesta: ti rispondiamo noi con il prezzo.";
     const col = $('input[name="colore"]:checked', scheda);
     if ($("#nomeColore") && col) $("#nomeColore").textContent = col.value;
     // l'anteprima provvisoria prende il colore scelto
@@ -209,21 +207,20 @@
     const chiave = p.id + "|" + s.dettagli.join("|");
     const esistente = carrello.find((v) => v.chiave === chiave);
     if (esistente) esistente.quantita++;
-    else carrello.push({ chiave, id: p.id, nome: p.nome, dettagli: s.dettagli, prezzo: s.prezzo, quantita: 1 });
+    else carrello.push({ chiave, id: p.id, nome: p.nome, dettagli: s.dettagli, quantita: 1 });
     salvaCarrello();
     disegnaCarrello(true);
     nascondi(scheda, veloScheda, true);
     prodottoAperto = null;
-    avviso(p.nome + " è nel carrello");
+    avviso(p.nome + " è nella tua richiesta");
   });
 
-  /* ---------- Carrello ---------- */
+  /* ---------- Richiesta (ex carrello) ---------- */
   let carrello = [];
   try { carrello = JSON.parse(localStorage.getItem(CHIAVE_CARRELLO)) || []; } catch (e) { carrello = []; }
   function salvaCarrello() {
     try { localStorage.setItem(CHIAVE_CARRELLO, JSON.stringify(carrello)); } catch (e) { /* memoria del browser non disponibile */ }
   }
-  const totaleCarrello = () => carrello.reduce((t, v) => t + v.prezzo * v.quantita, 0);
   const pezzi = () => carrello.reduce((t, v) => t + v.quantita, 0);
 
   function disegnaCarrello(saltello) {
@@ -234,7 +231,6 @@
     const vuoto = carrello.length === 0;
     $("#carrelloVuoto").hidden = !vuoto;
     $("#carrelloTotale").hidden = vuoto;
-    $("#totale").textContent = euro(totaleCarrello());
     $("#carrelloLista").innerHTML = carrello.map((v, i) => {
       const p = C.prodotti.find((x) => x.id === v.id) || { nome: v.nome, tinta: ["#F4DADC", "#E8B4B8"], foto: "" };
       return `<li class="voce">
@@ -249,7 +245,6 @@
           </div>
         </div>
         <div class="voce-destra">
-          <span class="voce-prezzo">${euro(v.prezzo * v.quantita)}</span>
           <button class="togli" data-azione="togli" data-i="${i}">Rimuovi</button>
         </div>
       </li>`;
@@ -290,23 +285,21 @@
   $("#indietro").addEventListener("click", () => passo("passoCarrello"));
   $("#riprova").addEventListener("click", () => passo("passoModulo"));
 
-  /* ---------- Invio dell'ordine (Netlify Forms) ---------- */
+  /* ---------- Invio della richiesta (Netlify Forms) ---------- */
   function testoOrdine() {
-    return carrello.map((v) => `• ${v.quantita} × ${v.nome} — ${v.dettagli.join(", ")} — ${euro(v.prezzo * v.quantita)}`).join("\n")
-      + `\n\nTotale: ${euro(totaleCarrello())}`;
+    return carrello.map((v) => `• ${v.quantita} × ${v.nome} — ${v.dettagli.join(", ")}`).join("\n");
   }
   const modulo = $("#moduloOrdine");
   modulo.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!carrello.length) { passo("passoCarrello"); return; }
     $("#campoOrdine").value = testoOrdine();
-    $("#campoTotale").value = euro(totaleCarrello());
     const dati = new FormData(modulo);
     const invia = $("#invia");
     invia.disabled = true; invia.textContent = "Invio in corso…";
 
-    const corpo = `Ciao Chiara e Alessia,\nvorrei ordinare:\n\n${testoOrdine()}\n\nNome: ${dati.get("nome")}\nEmail: ${dati.get("email")}\nTelefono: ${dati.get("telefono") || "-"}\nConsegna: ${dati.get("consegna")}\nPagamento: ${dati.get("pagamento")}\nIndirizzo: ${dati.get("indirizzo") || "-"}\nNote: ${dati.get("note") || "-"}`;
-    $("#inviaEmail").href = `mailto:${EMAIL_ORDINI}?subject=${encodeURIComponent("Ordine dal sito")}&body=${encodeURIComponent(corpo)}`;
+    const corpo = `Ciao Chiara e Alessia,\nvorrei avere informazioni e il prezzo per:\n\n${testoOrdine()}\n\nNome: ${dati.get("nome")}\nEmail: ${dati.get("email")}\nTelefono: ${dati.get("telefono") || "-"}\nNote: ${dati.get("note") || "-"}`;
+    $("#inviaEmail").href = `mailto:${EMAIL_ORDINI}?subject=${encodeURIComponent("Richiesta di informazioni dal sito")}&body=${encodeURIComponent(corpo)}`;
 
     fetch("/", {
       method: "POST",
@@ -319,7 +312,7 @@
         passo("passoGrazie");
       })
       .catch(() => passo("passoErrore"))
-      .finally(() => { invia.disabled = false; invia.textContent = "Invia l'ordine"; });
+      .finally(() => { invia.disabled = false; invia.textContent = "Invia la richiesta"; });
   });
 
   /* ---------- Avviso in basso ---------- */
