@@ -151,8 +151,13 @@
   function gruppo(titolo, contenuto) {
     return `<fieldset class="gruppo"><legend>${titolo}</legend>${contenuto}</fieldset>`;
   }
+  /* Colori della scheda aperta: per i regali di Natale si aggiungono rosso, verde e bianco */
+  function coloriDi(p) {
+    return p && p.coloriNatale ? [...C.colori, ...(C.coloriNatale || [])] : C.colori;
+  }
   function campioni(nome) {
-    return `<div class="campioni">${C.colori.map((c, i) => `
+    const elenco = coloriDi(prodottoAperto);
+    return `<div class="campioni">${elenco.map((c, i) => `
       <label class="campione" title="${c.nome}"><input type="radio" name="${nome}" value="${c.nome}" ${nome === "colore" && i === 0 ? "checked" : ""} aria-label="${c.nome}"><span style="--col:${c.hex}"></span></label>`).join("")}</div>
       ${nome === "colore" ? `<p class="nome-colore" id="nomeColore">${C.colori[0].nome}</p>` : ""}`;
   }
@@ -194,7 +199,7 @@
     if ($("#nomeColore") && col) $("#nomeColore").textContent = col.value;
     // l'anteprima provvisoria prende il colore scelto
     const anteprima = $("#schedaFigura .segnaposto");
-    const scelto = col && C.colori.find((c) => c.nome === col.value);
+    const scelto = col && coloriDi(prodottoAperto).find((c) => c.nome === col.value);
     if (anteprima && scelto && coloreToccato) {
       anteprima.style.setProperty("--t2", scelto.hex);
       anteprima.style.setProperty("--t1", "#E6D8CA");

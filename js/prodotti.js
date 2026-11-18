@@ -30,6 +30,13 @@ window.CATALOGO = {
     { nome: "Testa di moro",hex: "#3E2A22" }
   ],
 
+  /* Colori in più per i regali di Natale (oggi: i cestini regalo, con "coloriNatale: true") */
+  coloriNatale: [
+    { nome: "Rosso",        hex: "#B0263A" },
+    { nome: "Verde",        hex: "#3F6B45" },
+    { nome: "Bianco",       hex: "#FFFFFF" }
+  ],
+
   /* Personalizzazioni disponibili per le borse */
   materiali: [
     { nome: "Soft" },
@@ -101,7 +108,7 @@ window.CATALOGO = {
       misure: [ { nome: "" } ], tinta: ["#F6E9EC", "#8A3A55"] },
 
     /* Cestini regalo: si vende solo il cestino (i cioccolatini nella foto sono un esempio) */
-    { id: "cestino",      nome: "Cestino regalo",         categoria: "cestini", foto: "img/cestino.jpg",
+    { id: "cestino",      nome: "Cestino regalo",         categoria: "cestini", foto: "img/cestino.jpg", coloriNatale: true,
       descrizione: "Un piccolo cestino da riempire con cioccolatini, dolcetti o un pensiero speciale.",
       misure: [ { nome: "" } ], tinta: ["#F3EAD9", "#B0263A"] }
   ],
