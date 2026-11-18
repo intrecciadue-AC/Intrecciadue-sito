@@ -13,7 +13,7 @@ window.CATALOGO = {
   categorie: [
     { id: "borse",    nome: "Borse",               intro: "Le nostre creazioni più golose: ogni borsa nasce punto dopo punto, nel colore e nei dettagli che scegli tu." },
     { id: "telefono", nome: "Per il telefono",     intro: "Lacci e custodie per portare sempre con sé un piccolo intreccio." },
-    { id: "piccoli",  nome: "Piccoli dolci",       intro: "Portachiavi, presine e accessori da regalare, o da regalarsi." },
+    { id: "piccoli",  nome: "Accessori",           intro: "Portachiavi, presine e altri accessori da regalare, o da regalarsi." },
     /* "nascosta": non compare tra i filtri della vetrina, ha una sezione tutta sua (Cestini regalo) */
     { id: "cestini",  nome: "Cestini regalo",      intro: "", nascosta: true }
   ],
