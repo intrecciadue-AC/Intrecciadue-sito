@@ -11,7 +11,7 @@ Sito del brand Intrecci a Due: borse e accessori all'uncinetto fatti a mano da C
 | Testi delle sezioni (chi siamo, mercatini, domande frequenti) | `index.html` |
 | Colori e caratteri del sito | `css/style.css`, all'inizio, nella parte `:root` |
 | Foto | cartella `img/` |
-| Condizioni di vendita e privacy (bozze da completare: parti evidenziate in giallo) | `condizioni.html`, `privacy.html` |
+| Condizioni di vendita e privacy (se cambia qualcosa, aggiornare anche la data in cima alla pagina) | `condizioni.html`, `privacy.html` |
 | Caratteri tipografici (ospitati sul sito) | cartella `fonts/` |
 
 ## Aggiungere le foto
