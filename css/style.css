@@ -286,6 +286,12 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
 .decorazione h3 { color: var(--panna); font-size: 1.45rem; }
 .decorazione p { margin: 4px 0 0; font-size: .85rem; color: rgba(247, 240, 232, .7); letter-spacing: .06em; }
 
+/* ---------- Cestini regalo ---------- */
+.cestini { background: var(--panna-scura); }
+.cestini-griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 300px)); justify-content: center; gap: clamp(18px, 2.4vw, 32px); }
+.cestino-testo { margin: 6px 0 0; font-size: .92rem; color: var(--testo-tenue); }
+.cestini-nota { text-align: center; margin-top: 34px; font-family: var(--serif); font-style: italic; font-size: 1.25rem; color: var(--bordeaux); }
+
 /* ---------- Chi siamo ---------- */
 .chi-siamo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 90px); align-items: center; max-width: calc(var(--larghezza) + 96px); margin: 0 auto; }
 .chi-siamo > * { margin: 0; max-width: none; }

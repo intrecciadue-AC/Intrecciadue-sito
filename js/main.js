@@ -29,13 +29,14 @@
   let categoriaAttiva = "tutti";
 
   function disegnaFiltri() {
-    const voci = [{ id: "tutti", nome: "Tutto" }, ...C.categorie];
+    const voci = [{ id: "tutti", nome: "Tutto" }, ...C.categorie.filter((c) => !c.nascosta)];
     filtri.innerHTML = voci.map((c) =>
       `<button class="filtro" role="tab" data-categoria="${c.id}" aria-selected="${c.id === categoriaAttiva}">${c.nome}</button>`
     ).join("");
   }
   function disegnaVetrina() {
-    const elenco = C.prodotti.filter((p) => categoriaAttiva === "tutti" || p.categoria === categoriaAttiva);
+    const nascoste = C.categorie.filter((c) => c.nascosta).map((c) => c.id);
+    const elenco = C.prodotti.filter((p) => categoriaAttiva === "tutti" ? !nascoste.includes(p.categoria) : p.categoria === categoriaAttiva);
     const cat = C.categorie.find((c) => c.id === categoriaAttiva);
     introCategoria.textContent = cat ? cat.intro : "Borse, accessori per il telefono e piccoli regali: tutto fatto a mano, nel colore che preferisci.";
     griglia.innerHTML = elenco.map((p, i) => `
@@ -63,8 +64,25 @@
     <div class="decorazione rivela" style="--ritardo:${i * 0.1}s">
       <div class="prodotto-figura">${figura(d, false)}</div>
       <h3>${sicuro(d.nome)}</h3>
-      <p>All'uncinetto · su richiesta</p>
+      <p>${sicuro(d.nota || "All'uncinetto · su richiesta")}</p>
     </div>`).join("");
+
+  /* ---------- Cestini regalo ---------- */
+  const grigliaCestini = $("#cestiniGriglia");
+  if (grigliaCestini) {
+    grigliaCestini.innerHTML = C.prodotti.filter((p) => p.categoria === "cestini").map((p, i) => `
+      <button class="prodotto cestino rivela" data-id="${p.id}" style="--ritardo:${i * 0.1}s" aria-label="${sicuro(p.nome)}">
+        <div class="prodotto-figura">${figura(p, true)}</div>
+        <div>
+          <div class="prodotto-nome">${sicuro(p.nome)}</div>
+          ${p.descrizione ? `<p class="cestino-testo">${sicuro(p.descrizione)}</p>` : ""}
+        </div>
+      </button>`).join("");
+    grigliaCestini.addEventListener("click", (e) => {
+      const b = e.target.closest(".prodotto");
+      if (b) apriScheda(b.dataset.id, b);
+    });
+  }
 
   /* ---------- Recensioni ---------- */
   const rec = window.RECENSIONI || [];

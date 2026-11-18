@@ -13,7 +13,9 @@ window.CATALOGO = {
   categorie: [
     { id: "borse",    nome: "Borse",               intro: "Le nostre creazioni più golose: ogni borsa nasce punto dopo punto, nel colore e nei dettagli che scegli tu." },
     { id: "telefono", nome: "Per il telefono",     intro: "Lacci e custodie per portare sempre con sé un piccolo intreccio." },
-    { id: "piccoli",  nome: "Piccoli dolci",       intro: "Portachiavi, presine e accessori da regalare, o da regalarsi." }
+    { id: "piccoli",  nome: "Piccoli dolci",       intro: "Portachiavi, presine e accessori da regalare, o da regalarsi." },
+    /* "nascosta": non compare tra i filtri della vetrina, ha una sezione tutta sua (Cestini regalo) */
+    { id: "cestini",  nome: "Cestini regalo",      intro: "", nascosta: true }
   ],
 
   /* Colori disponibili (gratuiti). "hex" serve solo per il campione di colore sul sito. */
@@ -96,14 +98,21 @@ window.CATALOGO = {
     { id: "portamonete",  nome: "Porta monete",           categoria: "piccoli", foto: "img/portamonete.jpg",
       misure: [ { nome: "" } ],  tinta: ["#F1E4DA", "#6E1F2E"] },
     { id: "scrunchies",   nome: "Scrunchies",             categoria: "piccoli", foto: "img/scrunchies.jpg",
-      misure: [ { nome: "" } ], tinta: ["#F6E9EC", "#8A3A55"] }
+      misure: [ { nome: "" } ], tinta: ["#F6E9EC", "#8A3A55"] },
+
+    /* Cestini regalo: si vende solo il cestino (i cioccolatini nella foto sono un esempio) */
+    { id: "cestino",      nome: "Cestino regalo",         categoria: "cestini", foto: "img/cestino.jpg",
+      descrizione: "Un piccolo cestino da riempire con cioccolatini, dolcetti o un pensiero speciale.",
+      misure: [ { nome: "" } ], tinta: ["#F3EAD9", "#B0263A"] }
   ],
 
-  /* Collezione di Natale: senza prezzo, si chiedono informazioni */
+  /* Collezione di Natale: senza prezzo, si chiedono informazioni.
+     "nota" (facoltativa) sostituisce la riga sotto il nome. */
   natale: [
     { nome: "Pallina",                    foto: "", tinta: ["#F4E3E3", "#B0263A"] },
-    { nome: "Stella",                     foto: "", tinta: ["#F6EEDC", "#D4A645"] },
-    { nome: "Omino di pan di zenzero",    foto: "", tinta: ["#F1E2D2", "#A9663B"] },
-    { nome: "Ghirlandina",                foto: "", tinta: ["#EAF0E3", "#4F6B45"] }
+    { nome: "Stella",                     foto: "img/natale-stella.jpg", tinta: ["#F6EEDC", "#D4A645"] },
+    { nome: "Omino di pan di zenzero",    foto: "img/natale-omino.jpg", tinta: ["#F1E2D2", "#A9663B"] },
+    { nome: "Ghirlanda",                  foto: "img/natale-ghirlanda.jpg", tinta: ["#EAF0E3", "#4F6B45"],
+      nota: "Tante versioni diverse · su richiesta" }
   ]
 };
