@@ -10,6 +10,7 @@
   const C = window.CATALOGO;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const stat = (nome, ...arg) => { try { const S = window.IA2statistiche; if (S && S[nome]) S[nome](...arg); } catch (e) { /* niente */ } };
   const sicuro = (t) => String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   /* ---------- Figura: foto oppure segnaposto disegnato ---------- */
@@ -51,6 +52,7 @@
     const b = e.target.closest(".filtro");
     if (!b) return;
     categoriaAttiva = b.dataset.categoria;
+    stat("filtro", categoriaAttiva);
     disegnaFiltri();
     disegnaVetrina();
   });
@@ -146,6 +148,7 @@
     $("#schedaOpzioni").innerHTML = html;
     aggiornaPrezzoScheda();
     mostra(scheda, veloScheda);
+    stat("apertaScheda", p.id);
     setTimeout(() => $("#chiudiScheda").focus(), 60);
   }
   function gruppo(titolo, contenuto) {
@@ -217,6 +220,7 @@
   scheda.addEventListener("input", (e) => { if (e.target.id === "testoIniziali") aggiornaPrezzoScheda(); });
 
   function chiudiScheda() {
+    stat("chiusaScheda");
     nascondi(scheda, veloScheda);
     if (origineFocus) origineFocus.focus({ preventScroll: true });
     prodottoAperto = null;
@@ -233,6 +237,8 @@
     else carrello.push({ chiave, id: p.id, nome: p.nome, dettagli: s.dettagli, quantita: 1 });
     salvaCarrello();
     disegnaCarrello(true);
+    stat("chiusaScheda");
+    stat("aggiunto", p.id);
     nascondi(scheda, veloScheda, true);
     prodottoAperto = null;
     avviso(p.nome + " è nella tua richiesta");
@@ -290,6 +296,7 @@
   }
   function apriCarrello() {
     passo("passoCarrello");
+    stat("carrello");
     $("#avviso").classList.remove("visibile");
     pannello.setAttribute("aria-hidden", "false");
     mostra(pannello, veloCarrello);
@@ -331,6 +338,7 @@
     })
       .then((r) => {
         if (!r.ok) throw new Error(r.status);
+        stat("inviata", pezzi());
         carrello = []; salvaCarrello(); disegnaCarrello(); modulo.reset();
         passo("passoGrazie");
       })

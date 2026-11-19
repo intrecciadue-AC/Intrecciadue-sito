@@ -7,3 +7,10 @@
   for = "/img/*"
   [headers.values]
     Cache-Control = "public, max-age=604800"
+
+# Statistiche anonime: il file vuoto non va tenuto in memoria dal browser,
+# così ogni evento arriva al server e viene contato
+[[headers]]
+  for = "/s.gif"
+  [headers.values]
+    Cache-Control = "no-store"
