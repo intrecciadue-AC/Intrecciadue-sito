@@ -55,6 +55,7 @@ window.CATALOGO = {
   /* Prodotti
      - misure: elenco delle varianti (misure)
      - personalizzabile: true = mostra materiale ed extra (solo borse)
+     - coloriExtra (facoltativo): colori in più disponibili solo per quel prodotto
      - tinta: i due colori dello sfondo provvisorio finché non c'è la foto */
   prodotti: [
     { id: "confetto",   nome: "Confetto Bag",   categoria: "borse", foto: "img/confetto.jpg", personalizzabile: true,
@@ -83,6 +84,8 @@ window.CATALOGO = {
       tinta: ["#EFE2D6", "#8A5A44"] },
     { id: "mezzaluna",  nome: "Mezzaluna Bag",  categoria: "borse", foto: "img/mezzaluna.jpg", personalizzabile: true,
       misure: [ { nome: "Taglia unica" } ],
+      /* colori in più solo per questa borsa */
+      coloriExtra: [ { nome: "Verde", hex: "#3F6B45" }, { nome: "Blu", hex: "#1F3A68" } ],
       tinta: ["#F1E9DD", "#C9A989"] },
 
     { id: "laccio-polso",     nome: "Laccio da polso",               categoria: "telefono", foto: "img/laccio-polso.jpg",

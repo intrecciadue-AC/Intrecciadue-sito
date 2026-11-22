@@ -186,7 +186,8 @@
   }
   /* Colori della scheda aperta: per i regali di Natale si aggiungono rosso, verde e bianco */
   function coloriDi(p) {
-    return p && p.coloriNatale ? [...C.colori, ...(C.coloriNatale || [])] : C.colori;
+    const base = p && p.coloriNatale ? [...C.colori, ...(C.coloriNatale || [])] : C.colori;
+    return p && p.coloriExtra ? [...base, ...p.coloriExtra] : base;
   }
   function campioni(nome) {
     const elenco = coloriDi(prodottoAperto);
