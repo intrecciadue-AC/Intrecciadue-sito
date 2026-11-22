@@ -62,12 +62,18 @@
   });
 
   /* ---------- Natale ---------- */
-  $("#nataleGriglia").innerHTML = C.natale.map((d, i) => `
-    <div class="decorazione rivela" style="--ritardo:${i * 0.1}s">
+  const grigliaNatale = $("#nataleGriglia");
+  grigliaNatale.innerHTML = C.prodotti.filter((p) => p.categoria === "natale").map((d, i) => `
+    <button class="decorazione rivela" data-id="${d.id}" style="--ritardo:${i * 0.1}s" aria-label="${sicuro(d.nome)}: scegli e aggiungi alla richiesta">
       <div class="prodotto-figura">${figura(d, false)}</div>
       <h3>${sicuro(d.nome)}</h3>
       <p>${sicuro(d.nota || "All'uncinetto · su richiesta")}</p>
-    </div>`).join("");
+      <span class="decorazione-scegli">Scegli</span>
+    </button>`).join("");
+  grigliaNatale.addEventListener("click", (e) => {
+    const b = e.target.closest(".decorazione");
+    if (b) apriScheda(b.dataset.id, b);
+  });
 
   /* ---------- Cestini regalo ---------- */
   const grigliaCestini = $("#cestiniGriglia");
@@ -145,6 +151,15 @@
         <div id="secondoColore" hidden><p class="nome-colore" style="margin-top:14px">Secondo colore</p>${campioni("colore2")}</div>
         <input type="text" class="campo-testo" id="testoIniziali" maxlength="4" placeholder="Quali iniziali? (es. C.A.)" hidden>`);
     }
+    if (p.domanda) {
+      html += gruppo("Dettagli", `<input type="text" class="campo-testo" id="testoDomanda" maxlength="80" placeholder="${sicuro(p.domanda)}">`);
+    }
+    quantitaScheda = 1;
+    html += gruppo("Quantità", `<div class="quantita quantita-scheda">
+        <button type="button" data-q="meno" aria-label="Togli uno">−</button>
+        <span id="quantitaScheda">1</span>
+        <button type="button" data-q="piu" aria-label="Aggiungi uno">+</button>
+      </div>`);
     $("#schedaOpzioni").innerHTML = html;
     aggiornaPrezzoScheda();
     mostra(scheda, veloScheda);
@@ -190,6 +205,8 @@
         } else dettagli.push(x.nome);
       });
     }
+    const risposta = ($("#testoDomanda") || {}).value;
+    if (risposta && risposta.trim()) dettagli.push("Versione: " + risposta.trim());
     return { sovrapprezzo, dettagli };
   }
   function aggiornaPrezzoScheda() {
@@ -213,6 +230,13 @@
     if (ini) $("#testoIniziali").hidden = !ini.checked;
   }
   let coloreToccato = false;
+  let quantitaScheda = 1;
+  $("#schedaOpzioni").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-q]");
+    if (!b) return;
+    quantitaScheda = Math.max(1, Math.min(99, quantitaScheda + (b.dataset.q === "piu" ? 1 : -1)));
+    $("#quantitaScheda").textContent = quantitaScheda;
+  });
   scheda.addEventListener("change", (e) => {
     if (e.target.name === "colore") coloreToccato = true;
     aggiornaPrezzoScheda();
@@ -233,15 +257,15 @@
     const s = sceltaCorrente();
     const chiave = p.id + "|" + s.dettagli.join("|");
     const esistente = carrello.find((v) => v.chiave === chiave);
-    if (esistente) esistente.quantita++;
-    else carrello.push({ chiave, id: p.id, nome: p.nome, dettagli: s.dettagli, quantita: 1 });
+    if (esistente) esistente.quantita += quantitaScheda;
+    else carrello.push({ chiave, id: p.id, nome: p.nome, dettagli: s.dettagli, quantita: quantitaScheda });
     salvaCarrello();
     disegnaCarrello(true);
     stat("chiusaScheda");
     stat("aggiunto", p.id);
     nascondi(scheda, veloScheda, true);
     prodottoAperto = null;
-    avviso(p.nome + " è nella tua richiesta");
+    avviso(quantitaScheda > 1 ? `${quantitaScheda} × ${p.nome} nella tua richiesta` : p.nome + " è nella tua richiesta");
   });
 
   /* ---------- Richiesta (ex carrello) ---------- */

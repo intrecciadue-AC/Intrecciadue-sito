@@ -280,7 +280,12 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
 }
 @keyframes nevica { to { background-position: 0 600px, 35px 470px; } }
 .natale-griglia { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 2.4vw, 30px); }
-.decorazione { text-align: center; }
+.decorazione { text-align: center; background: transparent; border: 0; padding: 0; color: inherit; font: inherit; cursor: pointer; }
+.decorazione-scegli {
+  display: inline-block; margin-top: 12px; padding: 7px 18px; border: 1px solid rgba(247, 240, 232, .5); border-radius: 999px;
+  color: var(--panna); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; transition: background .3s, color .3s;
+}
+.decorazione:hover .decorazione-scegli, .decorazione:focus-visible .decorazione-scegli { background: var(--panna); color: var(--bordeaux); }
 .decorazione .prodotto-figura { aspect-ratio: 1; border-radius: 50%; margin-bottom: 16px; transition: transform .8s var(--morbido); }
 .decorazione:hover .prodotto-figura { transform: rotate(-4deg) scale(1.03); }
 .decorazione h3 { color: var(--panna); font-size: 1.45rem; }
@@ -459,6 +464,8 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
 .quantita { display: inline-flex; align-items: center; border: 1px solid var(--linea); border-radius: 999px; }
 .quantita button { width: 30px; height: 30px; border: 0; background: none; font-size: 1rem; }
 .quantita span { min-width: 22px; text-align: center; font-size: .9rem; }
+.quantita-scheda button { width: 40px; height: 40px; font-size: 1.15rem; cursor: pointer; }
+.quantita-scheda span { min-width: 30px; font-size: 1rem; }
 .voce-destra { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; }
 .voce-prezzo { font-family: var(--serif); font-size: 1.25rem; color: var(--bordeaux); }
 .togli { border: 0; background: none; font-size: .78rem; color: var(--testo-tenue); text-decoration: underline; text-underline-offset: 3px; padding: 0; }

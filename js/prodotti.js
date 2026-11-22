@@ -15,7 +15,9 @@ window.CATALOGO = {
     { id: "telefono", nome: "Per il telefono",     intro: "Lacci e custodie per portare sempre con sé un piccolo intreccio." },
     { id: "piccoli",  nome: "Accessori",           intro: "Portachiavi, presine e altri accessori da regalare, o da regalarsi." },
     /* "nascosta": non compare tra i filtri della vetrina, ha una sezione tutta sua (Cestini regalo) */
-    { id: "cestini",  nome: "Cestini regalo",      intro: "", nascosta: true }
+    { id: "cestini",  nome: "Cestini regalo",      intro: "", nascosta: true },
+    /* anche questa è "nascosta": le decorazioni stanno nella sezione Natale */
+    { id: "natale",   nome: "Collezione di Natale", intro: "", nascosta: true }
   ],
 
   /* Colori disponibili (gratuiti). "hex" serve solo per il campione di colore sul sito. */
@@ -30,7 +32,7 @@ window.CATALOGO = {
     { nome: "Testa di moro",hex: "#3E2A22" }
   ],
 
-  /* Colori in più per i regali di Natale (oggi: i cestini regalo, con "coloriNatale: true") */
+  /* Colori in più per i regali di Natale (cestini e decorazioni, con "coloriNatale: true") */
   coloriNatale: [
     { nome: "Rosso",        hex: "#B0263A" },
     { nome: "Verde",        hex: "#3F6B45" },
@@ -110,16 +112,21 @@ window.CATALOGO = {
     /* Cestini regalo: si vende solo il cestino (i cioccolatini nella foto sono un esempio) */
     { id: "cestino",      nome: "Cestino regalo",         categoria: "cestini", foto: "img/cestino.jpg", coloriNatale: true,
       descrizione: "Un piccolo cestino da riempire con cioccolatini, dolcetti o un pensiero speciale.",
-      misure: [ { nome: "" } ], tinta: ["#F3EAD9", "#B0263A"] }
-  ],
+      misure: [ { nome: "" } ], tinta: ["#F3EAD9", "#B0263A"] },
 
-  /* Collezione di Natale: senza prezzo, si chiedono informazioni.
-     "nota" (facoltativa) sostituisce la riga sotto il nome. */
-  natale: [
-    { nome: "Pallina",                    foto: "img/natale-pallina.jpg", tinta: ["#F4E3E3", "#B0263A"] },
-    { nome: "Stella",                     foto: "img/natale-stella.jpg", tinta: ["#F6EEDC", "#D4A645"] },
-    { nome: "Omino di pan di zenzero",    foto: "img/natale-omino.jpg", tinta: ["#F1E2D2", "#A9663B"] },
-    { nome: "Ghirlanda",                  foto: "img/natale-ghirlanda.jpg", tinta: ["#EAF0E3", "#4F6B45"],
-      nota: "Tante versioni diverse · su richiesta" }
+    /* Collezione di Natale: compaiono nella sezione Natale e si aggiungono alla richiesta come gli altri prodotti.
+       - "nota" (facoltativa): la riga sotto il nome; se manca si legge "All'uncinetto · su richiesta"
+       - "domanda" (facoltativa): una casella di testo nella scheda, per chiedere un dettaglio alla cliente */
+    { id: "natale-pallina",   nome: "Pallina",                 categoria: "natale", foto: "img/natale-pallina.jpg", coloriNatale: true,
+      misure: [ { nome: "" } ], tinta: ["#F4E3E3", "#B0263A"] },
+    { id: "natale-stella",    nome: "Stella",                  categoria: "natale", foto: "img/natale-stella.jpg", coloriNatale: true,
+      misure: [ { nome: "" } ], tinta: ["#F6EEDC", "#D4A645"] },
+    { id: "natale-omino",     nome: "Omino di pan di zenzero", categoria: "natale", foto: "img/natale-omino.jpg", coloriNatale: true,
+      misure: [ { nome: "" } ], tinta: ["#F1E2D2", "#A9663B"] },
+    { id: "natale-ghirlanda", nome: "Ghirlanda",               categoria: "natale", foto: "img/natale-ghirlanda.jpg", coloriNatale: true,
+      nota: "Tante versioni diverse · su richiesta",
+      domanda: "Che versione ti piacerebbe? (facoltativo)",
+      misure: [ { nome: "" } ], tinta: ["#EAF0E3", "#4F6B45"] }
   ]
+
 };
