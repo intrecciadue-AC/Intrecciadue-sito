@@ -318,6 +318,14 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
 .cornice-a { --c: var(--cipria-chiara); left: 0; top: 0; transform: rotate(-4deg); }
 .cornice-b { --c: var(--panna-scura); right: 0; bottom: 0; transform: rotate(4deg); }
 .cornice img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cornice-unica { --c: var(--panna-scura); position: relative; width: 82%; margin: 0 auto; transform: rotate(-2deg); }
+.chi-figura:has(.cornice-unica) { aspect-ratio: auto; }
+
+/* Polaroid del banco */
+.mercatini-corpo { display: grid; grid-template-columns: minmax(180px, 260px) 1fr; gap: clamp(26px, 5vw, 60px); align-items: center; max-width: 960px; }
+.mercatini-corpo .evento { max-width: none; }
+.polaroid { margin: 0; }
+.polaroid img { width: 100%; height: auto; display: block; border-radius: 4px; box-shadow: var(--ombra); transform: rotate(-3deg); }
 
 /* ---------- Mercatini ---------- */
 .mercatini { background: var(--cipria-chiara); }
@@ -544,6 +552,8 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
   .prodotto-prezzo { font-size: .82rem; }
   .prodotto .scopri { display: none; }
   .evento { grid-template-columns: 1fr; text-align: center; }
+  .mercatini-corpo { grid-template-columns: 1fr; }
+  .polaroid { max-width: 220px; margin: 0 auto; }
   .garanzie ul { grid-template-columns: 1fr; }
   .evento-data { margin: 0 auto; width: 124px; height: 124px; }
   .evento-data .giorno { font-size: 3rem; }
