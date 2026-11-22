@@ -290,6 +290,8 @@ section > * { max-width: var(--larghezza); margin-inline: auto; }
 .decorazione:hover .prodotto-figura { transform: rotate(-4deg) scale(1.03); }
 .decorazione h3 { color: var(--panna); font-size: 1.45rem; }
 .decorazione p { margin: 4px 0 0; font-size: .85rem; color: rgba(247, 240, 232, .7); letter-spacing: .06em; }
+.decorazione .decorazione-disponibili { color: var(--cipria); font-weight: 500; }
+.decorazione .decorazione-disponibili.esaurita { color: rgba(247, 240, 232, .5); }
 
 /* ---------- Cestini regalo ---------- */
 .cestini { background: var(--panna-scura); }

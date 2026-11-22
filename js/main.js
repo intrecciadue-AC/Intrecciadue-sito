@@ -22,6 +22,16 @@
     return interno + (conScopri ? `<span class="scopri">Scegli e personalizza</span>` : "");
   }
   const SOVRAPPREZZO = `<small>con sovrapprezzo</small>`;
+  /* Pezzi già pronti con quantità limitata ("disponibili" in prodotti.js) */
+  const limitato = (p) => typeof p.disponibili === "number";
+  const esaurito = (p) => limitato(p) && p.disponibili <= 0;
+  function testoDisponibili(p) {
+    if (!limitato(p)) return "";
+    if (p.disponibili <= 0) return "Esaurita";
+    if (p.disponibili === 1) return "Ultima disponibile";
+    if (p.disponibili <= 3) return `Ultime ${p.disponibili}`;
+    return `${p.disponibili} disponibili`;
+  }
 
   /* ---------- Vetrina ---------- */
   const griglia = $("#griglia");
@@ -67,12 +77,16 @@
     <button class="decorazione rivela" data-id="${d.id}" style="--ritardo:${i * 0.1}s" aria-label="${sicuro(d.nome)}: scegli e aggiungi alla richiesta">
       <div class="prodotto-figura">${figura(d, false)}</div>
       <h3>${sicuro(d.nome)}</h3>
-      <p>${sicuro(d.nota || "All'uncinetto · su richiesta")}</p>
-      <span class="decorazione-scegli">Scegli</span>
+      <p>${sicuro(d.nota || (limitato(d) ? "All'uncinetto · pronta" : "All'uncinetto · su richiesta"))}</p>
+      ${limitato(d) ? `<p class="decorazione-disponibili${esaurito(d) ? " esaurita" : ""}">${testoDisponibili(d)}</p>` : ""}
+      <span class="decorazione-scegli">${esaurito(d) ? "Esaurita" : "Scegli"}</span>
     </button>`).join("");
   grigliaNatale.addEventListener("click", (e) => {
     const b = e.target.closest(".decorazione");
-    if (b) apriScheda(b.dataset.id, b);
+    if (!b) return;
+    const d = C.prodotti.find((x) => x.id === b.dataset.id);
+    if (d && esaurito(d)) { avviso(d.nome + " è esaurita"); return; }
+    apriScheda(b.dataset.id, b);
   });
 
   /* ---------- Cestini regalo ---------- */
@@ -140,7 +154,8 @@
       html += gruppo("Misura", `<div class="scelte">${p.misure.map((m, i) => `
         <label class="scelta"><input type="radio" name="misura" value="${i}" ${i === 0 ? "checked" : ""}><span>${sicuro(m.nome)}</span></label>`).join("")}</div>`);
     }
-    html += gruppo("Colore", campioni("colore"));
+    if (p.coloreFisso) html += gruppo("Colore", `<p class="nome-colore">Come in foto${limitato(p) ? " · " + testoDisponibili(p).toLowerCase() : ""}</p>`);
+    else html += gruppo("Colore", campioni("colore"));
     if (p.personalizzabile) {
       if (!p.soloPelle) {
         html += gruppo("Materiale", `<div class="scelte">${C.materiali.map((m, i) => `
@@ -186,7 +201,7 @@
     let sovrapprezzo = false;
     const dettagli = [];
     if (misura.nome) dettagli.push(misura.nome);
-    dettagli.push("Colore: " + colore);
+    dettagli.push(p.coloreFisso ? "Come in foto" : "Colore: " + colore);
     if (p.personalizzabile) {
       if (p.soloPelle) dettagli.push("Pelle");
       else {
@@ -234,7 +249,8 @@
   $("#schedaOpzioni").addEventListener("click", (e) => {
     const b = e.target.closest("button[data-q]");
     if (!b) return;
-    quantitaScheda = Math.max(1, Math.min(99, quantitaScheda + (b.dataset.q === "piu" ? 1 : -1)));
+    const massimo = prodottoAperto && limitato(prodottoAperto) ? Math.max(1, prodottoAperto.disponibili) : 99;
+    quantitaScheda = Math.max(1, Math.min(massimo, quantitaScheda + (b.dataset.q === "piu" ? 1 : -1)));
     $("#quantitaScheda").textContent = quantitaScheda;
   });
   scheda.addEventListener("change", (e) => {
@@ -258,7 +274,8 @@
     const chiave = p.id + "|" + s.dettagli.join("|");
     const esistente = carrello.find((v) => v.chiave === chiave);
     if (esistente) esistente.quantita += quantitaScheda;
-    else carrello.push({ chiave, id: p.id, nome: p.nome, dettagli: s.dettagli, quantita: quantitaScheda });
+    if (esistente && limitato(p)) esistente.quantita = Math.min(esistente.quantita, p.disponibili);
+    if (!esistente) carrello.push({ chiave, id: p.id, nome: p.nome, dettagli: s.dettagli, quantita: quantitaScheda });
     salvaCarrello();
     disegnaCarrello(true);
     stat("chiusaScheda");
@@ -307,7 +324,8 @@
     const b = e.target.closest("button[data-azione]");
     if (!b) return;
     const v = carrello[+b.dataset.i];
-    if (b.dataset.azione === "piu") v.quantita++;
+    const prodottoRiga = C.prodotti.find((x) => x.id === v.id);
+    if (b.dataset.azione === "piu" && !(prodottoRiga && limitato(prodottoRiga) && v.quantita >= prodottoRiga.disponibili)) v.quantita++;
     if (b.dataset.azione === "meno") v.quantita--;
     if (b.dataset.azione === "togli" || v.quantita < 1) carrello.splice(+b.dataset.i, 1);
     salvaCarrello();

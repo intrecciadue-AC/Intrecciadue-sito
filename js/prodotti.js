@@ -123,10 +123,20 @@ window.CATALOGO = {
       misure: [ { nome: "" } ], tinta: ["#F6EEDC", "#D4A645"] },
     { id: "natale-omino",     nome: "Omino di pan di zenzero", categoria: "natale", foto: "img/natale-omino.jpg", coloriNatale: true,
       misure: [ { nome: "" } ], tinta: ["#F1E2D2", "#A9663B"] },
-    { id: "natale-ghirlanda", nome: "Ghirlanda",               categoria: "natale", foto: "img/natale-ghirlanda.jpg", coloriNatale: true,
-      nota: "Tante versioni diverse · su richiesta",
-      domanda: "Che versione ti piacerebbe? (facoltativo)",
-      misure: [ { nome: "" } ], tinta: ["#EAF0E3", "#4F6B45"] }
+    /* Ghirlande: pezzi già pronti, come in foto (niente scelta del colore).
+       - "disponibili": quante ne restano. Aggiornarlo a ogni vendita; con 0 la ghirlanda risulta esaurita. */
+    { id: "natale-ghirlanda", nome: "Ghirlanda renna",                 categoria: "natale", foto: "img/natale-ghirlanda.jpg", coloreFisso: true, disponibili: 7,
+      misure: [ { nome: "" } ], tinta: ["#F1E2D2", "#7A5236"] },
+    { id: "natale-ghirlanda-bianca-bordeaux",   nome: "Ghirlanda bianca e bordeaux",    categoria: "natale", foto: "img/natale-ghirlanda-bianca-bordeaux.jpg", coloreFisso: true, disponibili: 4,
+      misure: [ { nome: "" } ], tinta: ["#F7F0E8", "#6E1F2E"] },
+    { id: "natale-ghirlanda-pon-pon",           nome: "Ghirlanda bianca con pon pon",   categoria: "natale", foto: "img/natale-ghirlanda-pon-pon.jpg", coloreFisso: true, disponibili: 4,
+      misure: [ { nome: "" } ], tinta: ["#F7F0E8", "#B0263A"] },
+    { id: "natale-ghirlanda-intrecciata",       nome: "Ghirlanda rossa e verde",        categoria: "natale", foto: "img/natale-ghirlanda-intrecciata.jpg", coloreFisso: true, disponibili: 3,
+      misure: [ { nome: "" } ], tinta: ["#B0263A", "#3F6B45"] },
+    { id: "natale-ghirlanda-verde-bordo-rosso", nome: "Ghirlanda verde con bordo rosso", categoria: "natale", foto: "img/natale-ghirlanda-verde-bordo-rosso.jpg", coloreFisso: true, disponibili: 5,
+      misure: [ { nome: "" } ], tinta: ["#3F6B45", "#B0263A"] },
+    { id: "natale-ghirlanda-verde",             nome: "Ghirlanda verde",                categoria: "natale", foto: "img/natale-ghirlanda-verde.jpg", coloreFisso: true, disponibili: 7,
+      misure: [ { nome: "" } ], tinta: ["#EAF0E3", "#3F6B45"] }
   ]
 
 };
