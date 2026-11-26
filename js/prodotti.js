@@ -154,7 +154,7 @@ window.CATALOGO = {
       misure: [ { nome: "" } ], tinta: ["#F4E3E3", "#B0263A"] },
     { id: "natale-ghirlanda-blu",               nome: "Ghirlanda blu con renna",        categoria: "natale", foto: "img/natale-ghirlanda-blu.jpg", coloreFisso: true, disponibili: 4,
       misure: [ { nome: "" } ], tinta: ["#E6EAF2", "#1F2A4D"] },
-    { id: "natale-cuore",                       nome: "Cuore",                          categoria: "natale", foto: "img/natale-cuore.jpg", coloreFisso: true, disponibili: 4,
+    { id: "natale-cuore",                       nome: "Cuore panna e marrone",          categoria: "natale", foto: "img/natale-cuore.jpg", coloreFisso: true, disponibili: 4, nota: "All'uncinetto · pronto · venduto singolo",
       misure: [ { nome: "" } ], tinta: ["#F7F0E8", "#5A3A30"] }
   ]
 
